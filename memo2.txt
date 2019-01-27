@@ -1,0 +1,132 @@
+create table pro_member(
+  id varchar2(20) primary key,
+  password varchar2(20) not null,
+  name varchar2(20) not null,
+  ssn1 number not null,
+  ssn2 number not null,
+  hp1 varchar2(4) not null,
+  hp2 number not null,
+  hp3 number not null,
+  email1 varchar2(30),
+  email2 varchar2(30),
+  sms varchar(10) default 'refusal',
+  joindate date default sysdate,
+  point number	default 0
+);
+
+drop table pro_member;
+
+-- 카테고리 테이블
+
+create table pro_cate(
+	code varchar2(20) primary key,
+	cname varchar2(50) not null,
+	lc varchar2(20) not null
+	
+);
+
+insert into pro_cate values('man','남성복','패션뷰티');
+insert into pro_cate values('woman','여성복','패션뷰티');
+insert into pro_cate values('kid','아동복','패션뷰티');
+insert into pro_cate values('cap','모자','패션뷰티');
+insert into pro_cate values('glass','안경','패션뷰티');
+
+insert into pro_cate values('bed','침대','가구생활');
+insert into pro_cate values('sofa','쇼파','가구생활');
+insert into pro_cate values('table','책상','가구생활');
+insert into pro_cate values('chair','의자','가구생활');
+
+insert into pro_cate values('toy','장난감','유아용품');
+insert into pro_cate values('kid_job','아동잡화','유아용품');
+
+insert into pro_cate values('notebook','노트북','가전디지털');
+insert into pro_cate values('computer','컴퓨터','가전디지털');
+insert into pro_cate values('camera','디지털카메라','가전디지털');
+insert into pro_cate values('phone','핸드폰','가전디지털');
+
+
+
+
+
+drop table pro_cate;
+System.out.println();
+create table pro_product(
+	pnum 		int not null primary key,
+	pid			varchar2(20) not null,
+	php			varchar2(20) not null,
+	parea		varchar2(4)	not null,/*거래지역*/
+	pboonryu	varchar2(6)	not null,/*팝니다 삽니다 교환*/
+	pname 		varchar2(50) not null,제품명
+	pcompany 	varchar2(50),//제조사
+	pcondition	varchar2(8) not null,//중고품,중고(미사용), 신상품
+	pcate  	varchar2(20) not null,//카테고리
+	psubject	varchar2(60) default '제목없음',//글제목
+	pyear		int not null,//구입년도
+	pmonth		int not null,//구입월
+	pimage1   		varchar2(40),
+	pimage2  		varchar2(40),
+	pimage3   		varchar2(40),
+	pimage4   		varchar2(40),
+	pqty		int default 0,
+	pprice   		int not null,//구매가
+	cprice   		int not null,//판매가
+	pcontents 	varchar2(2000),
+	pinputdate 	date default sysdate,
+	constraint FK FOREIGN KEY ( pcate ) REFERENCES pro_cate ( code )
+);
+create table pro_product(
+	pnum 		int not null primary key,
+	pid			varchar2(20) not null,
+	php			varchar2(20) not null,
+	parea		varchar2(10)	not null,
+	pboonryu	varchar2(10)	not null,
+	pname 		varchar2(50) not null,
+	pcompany 	varchar2(50),
+	pcondition	varchar2(10) not null,
+	pcate  	varchar2(20) not null,
+	psubject	varchar2(60) default '제목없음',
+	pyear		int not null,
+	pmonth		int not null,
+	pimage1   		varchar2(40),
+	pimage2  		varchar2(40),
+	pimage3   		varchar2(40),
+	pimage4   		varchar2(40),
+	pqty		int default 0,
+	pprice   		int not null,
+	cprice   		int not null,
+	pcontents 	varchar2(2000),
+	pinputdate 	date default sysdate,
+	constraint FK FOREIGN KEY ( pcate ) REFERENCES pro_cate ( code )
+);
+drop table pro_product ;
+create sequence pro_prod nocache;
+
+
+
+drop sequence pro_prod;
+
+
+create table pro_claim(
+  	cnum 		int not null primary key,
+   	cboon		varchar2(30) not null,
+	cid			varchar2(20) not null,
+	cname		varchar2(20) not null,
+	phone		varchar2(20) not null,
+	cemail		varchar2(60) not null,
+	ccate		varchar2(20) not null,
+	csubject	varchar2(100) not null,
+	ccontents	varchar2(2000) not null,
+	indate		date default sysdate
+);
+
+create sequence claim_seq nocache;
+   
+create table pro_msg(
+	mnum number primary key,
+	sendid varchar2(20) not null,
+	receiveid varchar2(20) not null,
+	msubject varchar2(30) not null,
+	content varchar2(2000) not null
+);
+create sequence m_seq nocache;
+   

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="order.model.Order" >
+
+	<insert id="InsertData" parameterType="MyOrder">
+		insert into allorder(onum, mid, pnum, qty, price, amount, orderdate)
+		values (allorderseq.nextval, #{mid}, #{pnum}, #{qty}, #{price}, #{amount}, sysdate)
+	</insert>
+	
+	<select id="GetMaxOrderNum" resultType="int">
+		select max(onum) as onum from allorder
+	</select>
+
+</mapper>

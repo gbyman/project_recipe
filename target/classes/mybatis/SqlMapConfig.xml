@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <configuration>
+ 	<typeAliases>
+ 		<typeAlias type="allmember.model.AllMember" alias="MyAllMember"/>
+ 		<typeAlias type="product.model.Product" alias="MyProduct"/>
+ 		<typeAlias type="order.model.Order" alias="MyOrder"/>
+ 		<typeAlias type="orderdetail.model.OrderDetail" alias="MyOrderDetail"/>
+ 		<typeAlias type="recipe.model.Recipe" alias="MyRecipe"/>
+ 		<typeAlias type="ingredient.model.Ingredient" alias="MyIngredient"/>
+ 		<typeAlias type="procedure.model.Procedure" alias="MyProcedure"/>
+ 		<typeAlias type="talk.model.Talk" alias="MyTalk"/>
+ 		<typeAlias type="cookinfo.model.CookInfo" alias="MyCookInfo"/>
+ 		<typeAlias type="reply.model.Reply" alias="MyReply"/>
+ 		<typeAlias type="opinion.model.Opinion" alias="MyOpinion"/>
+ 		<typeAlias type="chef.model.Chef" alias="MyChef"/>
+ 	</typeAliases>
+ 	
+ 	<mappers>
+ 		<mapper resource="mybatis/product.xml"/>
+ 		<mapper resource="mybatis/chef.xml"/>
+ 		<mapper resource="mybatis/allmember.xml"/>
+ 		<mapper resource="mybatis/order.xml"/>
+ 		<mapper resource="mybatis/orderdetail.xml"/>
+ 		<mapper resource="mybatis/recipe.xml"/>
+ 		<mapper resource="mybatis/ingredient.xml"/>
+ 		<mapper resource="mybatis/procedure.xml"/>
+ 		<mapper resource="mybatis/talk.xml"/>
+ 		<mapper resource="mybatis/cookinfo.xml"/>
+ 		<mapper resource="mybatis/reply.xml"/>
+ 		<mapper resource="mybatis/opinion.xml"/>
+ 		<mapper resource="mybatis/composite.xml"/>
+ 	</mappers>
+ </configuration>

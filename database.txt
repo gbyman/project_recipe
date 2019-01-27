@@ -1,0 +1,158 @@
+--ȸ�� ���̺� 
+
+create table allmember(
+	id 			varchar2(20) primary key,	
+	password 	varchar2(30) not null,	
+	nickname	varchar2(30) not null,
+	name 		varchar2(30) not null,		
+	email1 		varchar2(30) not null,
+	email2 		varchar2(30) not null,				
+	hp1 		varchar2(4) not null,		
+  	hp2 		varchar2(8) not null,
+  	hp3 		varchar2(8) not null,
+	postnumber	varchar2(20),			--�����ȣ
+	address1 	varchar2(70),			
+	address2 	varchar2(70),
+	year		varchar2(10),					--�������
+	month		varchar2(10),
+	day			varchar2(10),
+	gender 		varchar2(10),
+	img			varchar2(30),
+	joindate 	date default sysdate	--���Գ�¥
+) ;
+
+create sequence recipereq start with 1 increment by 1 nocache ;
+
+drop table recipe cascade constraints;
+create table recipe(
+	recnum		number primary key,	
+	writer		varchar2(30) references allmember(id) on delete set null,
+	theme		varchar2(30) not null,
+	psubject	varchar2(60) default '제목없음',
+	intro		varchar2(2000),		--�Ұ�
+	mainimage	varchar2(40),		--�빮�̹���
+	movieurl	varchar2(60),		--������ ��ũ�ּ�
+	image1		varchar2(40),		
+	image2		varchar2(40),		
+	image3		varchar2(40),		
+	image4		varchar2(40),
+	inputdate	date default sysdate
+);
+
+
+insert into recipe(recnum,writer,psubject,intro,mainimage) values(recipereq.nextval,'admin','�����Դϴ�','�Ұ����Դϴ�','�ھ˶�.jpg'); 
+
+create sequence ingredientreq start with 1 increment by 1 nocache ;
+
+drop table ingredient cascade constraints;
+create table ingredient(
+	inum	number primary key,	
+	recnum	number references recipe(recnum) on delete cascade,
+	fname	varchar2(30) not null,
+	iname	varchar2(30) not null,
+	mass	varchar2(30) not null
+);
+
+create sequence procedurereq start with 1 increment by 1 nocache ;
+
+drop table procedure cascade constraints;
+create table procedure(
+	pronum		number primary key,	
+	recnum		number references recipe(recnum) on delete cascade,
+	procontent	varchar2(2000),
+	proimage	varchar2(30)
+);
+
+drop sequence talkseq;
+create sequence talkseq start with 1 increment by 1 nocache ;
+
+drop table talk;
+create table talk(
+	tnum		number primary key,
+	tid 		varchar2(20) not null,
+	tcontent	varchar2(2000),
+	timage		varchar2(30),
+	tmovie		varchar2(60),
+	inputdate	date default sysdate
+);
+
+insert into talk(tnum,tid,tcontent,timage,inputdate) values(talkseq.nextval,'admin','내용입니다.','Koala.jpg',sysdate);
+
+create sequence cookinfoseq start with 1 increment by 1 nocache ;
+
+create table cookinfo(
+	infonum			number primary key,	
+	infosubject		varchar2(60),
+	infointro		varchar2(2000),
+	infoimage		varchar2(30),
+	infomovie		varchar2(60),
+	indate		date default sysdate
+);
+
+
+create sequence productseq start with 1 increment by 1 nocache ;
+
+create table product(
+	pnum			number primary key,	
+	pname			varchar2(30) not null,
+	capacity		varchar2(20),
+	price			number,
+	stock			number,
+	company			varchar2(30),
+	origin			varchar2(30),
+	pimage			varchar2(30),
+	inputdate		date default sysdate
+);
+
+
+
+
+
+create sequence allorderseq start with 1 increment by 1 nocache ;
+create table allorder(
+  onum 		number primary key,
+  mid		varchar2(20) not null,
+  pnum 		number references product(pnum) on delete set null,
+  qty 		number,
+  price		number,
+  amount	number,
+  orderdate	date default sysdate
+); 
+
+drop sequence replyreq;
+
+create sequence replyreq start with 1 increment by 1 nocache ;
+
+drop table reply;
+
+create table reply(
+	renum		number primary key,
+	cate		varchar2(20) not null,
+	canum		number not null,
+	rewriter	varchar2(30) not null,
+	content		varchar2(2000),
+	renickname	varchar2(30) not null,
+	reimg		varchar2(30) not null,
+	ref 		number not null,	
+	restep 		number not null,
+	relevel 	number not null,
+	parentnum 	number not null,
+	inputdate	date default sysdate
+);
+
+
+create sequence opinionreq start with 1 increment by 1 nocache ;
+
+create table opinion(
+	opnum	number primary key,
+	opid		varchar2(30) not null,
+	opsubject	varchar2(60) not null,
+	opcontent	varchar2(2000) not null,
+	ref 		number not null,	
+	restep 		number not null,
+	relevel 	number not null,
+	currdate date default sysdate
+);
+
+
+select rec.

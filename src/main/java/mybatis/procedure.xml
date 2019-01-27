@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="procedure.model.Procedure" >
+	<insert id="insertProcedure">
+		insert into procedure values(procedurereq.nextval,#{recnum},#{procontent},#{proimage})
+	</insert>
+	<select id="selectByRecnum" resultType="MyProcedure"> 
+		select * from procedure where recnum=#{recnum} order by pronum
+	</select>
+	<delete id="deleteProcedure">
+		delete from procedure where recnum=#{recnum}
+	</delete>
+</mapper>

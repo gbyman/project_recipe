@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="talk.model.Talk" >
+	<select id="TalkList" resultType="talk.model.TalkContainer">
+		select t.tnum,t.tid,t.tcontent,m.img,t.timage,t.tmovie,t.inputdate,m.nickname 
+		from talk t join allmember m
+		on t.tid=m.id
+		order by t.tnum desc
+	</select>
+	<select id="containerByTid" resultType="talk.model.TalkContainer">
+		select t.tnum,t.tid,t.tcontent,m.img,t.timage,t.tmovie,t.inputdate,m.nickname 
+		from talk t join allmember m
+		on t.tid=m.id and tnum=#{tnum}
+		order by t.tnum desc
+	</select>
+	<insert id="TalkInsert">
+		insert into talk values(talkseq.nextval,#{tid},#{tcontent},#{timage},#{tmovie},sysdate)
+	</insert>
+	<select id="selectByTnum" resultType="MyTalk">
+		select * from talk where tnum=#{tnum}
+	</select>
+	<update id="updateTalk">
+		update talk set tcontent=#{tcontent},timage=#{timage},tmovie=#{tmovie} where tnum=#{tnum}
+	</update>
+	<delete id="deleteTalk">
+		delete from talk where tnum=#{tnum}
+	</delete>
+	<select id="selectById" resultType="Mytalk">
+		select * from talk where tid=#{id} order by inputdate desc
+	</select>
+	<delete id="deleteById">
+		delete from talk where tid=#{id}
+	</delete>
+	<select id="getCountByImage" resultType="int">
+		select count(*) from talk where timage=#{img}
+	</select>
+</mapper>

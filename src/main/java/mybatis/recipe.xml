@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="recipe.model.Recipe" >
+	
+	<select id="GetTotalCount" resultType="int">
+		select count(*) from recipe
+		<if test="theme!='all'"> 
+			where theme=#{theme}
+		</if>
+		<if test="what=='yes'">
+			where psubject like #{keyword}
+		</if>
+	</select>
+	
+	<select id="GetDataList" resultType="MyRecipe">
+		select * from recipe
+		<if test="theme!='all'"> 
+			where theme=#{theme}
+		</if>
+		<if test="what=='yes'">
+			where psubject like #{keyword}
+		</if>
+		order by recnum desc
+	</select>
+	
+	<select id="GetData" resultType="MyRecipe">
+		select * from recipe
+		where recnum = #{recnum}
+	</select> 
+	
+	<insert id="InsertData" parameterType="MyRecipe">
+		insert into recipe(recnum, writer, psubject, theme, intro, mainimage, movieurl, image1, image2, image3, image4, inputdate)
+		values(recipereq.nextval,#{writer}, #{psubject},#{theme},#{intro},#{mainimage},#{movieurl},#{image1},#{image2},#{image3},#{image4},sysdate)
+	</insert>
+	
+	<update id="UpdateData" parameterType="MyRecipe">
+		update recipe set 
+		psubject=#{psubject}, theme=#{theme}, shortintro=#{shortintro}, intro=#{intro}, mainimage=#{mainimage},ingredient = #{ingredient}, movieurl = #{movieurl},
+		image1= #{image1},image2 = #{image2},image3 = #{image3},image4 = #{image4}, inputdate=sysdate 
+		where recnum = #{recnum}
+	</update>
+	
+	<delete id="DeleteData">
+		delete from recipe
+		where recnum = #{recnum}
+	</delete>
+	
+	<select id="searchRecipe" resultType="MyRecipe">
+		select * from recipe where psubject like #{keyword}
+	</select>
+	
+	<select id="recentRecipe" resultType="MyRecipe">
+		select * from recipe order by recnum desc
+	</select>
+	<select id="selectById" resultType="MyRecipe">
+		select * from recipe where writer=#{id} order by inputdate desc
+	</select> 
+	<delete id="deleteById">
+		delete from recipe where writer=#{id}
+	</delete>
+</mapper>

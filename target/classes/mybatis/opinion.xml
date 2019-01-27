@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="opinion.model.Opinion" >
+	<select id="selectById" resultType="MyOpinion">
+		select * from opinion where opid=#{id} order by ref desc, restep asc
+	</select>
+	<insert id="insertOpinion">
+		insert into opinion values(opinionreq.nextval,#{opid},#{opsubject},#{opcontent},opinionreq.currval,0,0,sysdate)	
+	</insert>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from opinion
+	</select>
+	<select id="selectAllOpinion" resultType="MyOpinion">
+		select * from opinion order by ref desc, restep asc
+	</select>
+	<select id="selectByOpnum" resultType="MyOpinion">
+		select * from opinion where opnum=#{opnum}
+	</select>
+	<delete id="deleteById">
+		delete from opinion where opid=#{id}
+	</delete>
+	<update id="updateOpinionReply">
+ 		update opinion set restep=restep+1 where restep>#{restep} and ref=#{ref}
+ 	</update>
+	<insert id="replyOpinion">
+		insert into opinion values(opinionreq.nextval,#{opid},#{opsubject},#{opcontent},#{ref},#{restep}+1,#{relevel}+1,sysdate)
+	</insert>
+	<delete id="deleteOpinion">
+		delete from opinion where opnum=#{opnum}	
+	</delete>
+</mapper>

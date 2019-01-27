@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="product.model.Product" >
+
+	<select id="GetTotalCount" resultType="int">
+		select count(*) from product
+	</select>
+	
+	<select id="GetDataList" resultType="MyProduct">
+		select * from product
+		order by pnum desc
+	</select>
+	
+	<select id="GetData" resultType="MyProduct">
+		select * from product
+		where pnum = #{pnum}
+	</select>
+	
+	<insert id="InsertData" parameterType="MyProduct">
+		insert into product (pnum, pname, price, stock, company, origin, pimage, inputdate,pkind )
+		values (productseq.nextval, #{pname},#{price},#{stock},#{company},#{origin},#{pimage}, sysdate,#{pkind})	
+	</insert>
+	
+	<update id="UpdateData">
+		update product set
+		pname = #{pname}, price = #{price}, stock = #{stock}, company = #{company},
+		origin = #{origin}, pimage = #{pimage}
+		where pnum = #{pnum}
+	</update>
+	
+	<delete id="DeleteData">
+		delete from product
+		where pnum = #{pnum}
+	</delete>
+	
+	<update id="UpdateData2" parameterType ="MyProduct">
+		update product set
+		stock = stock - #{stock}
+		where pnum = #{pnum}
+	</update>
+
+	 <select id="selectPageRow" resultType="MyProduct">
+ 		select *from product where pkind=#{pkind} order by pnum desc
+ 	</select>	
+	<select id="totalpkindCount" resultType="int">
+ 		select count(*) from product where pkind=#{pkind}
+ 		
+ 	</select>
+ 	<select id="GetDataList1" resultType="MyProduct">
+ 		select * from product 
+ 	</select>
+</mapper>

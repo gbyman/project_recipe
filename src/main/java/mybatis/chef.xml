@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace = "chef.model.Chef">
+ 	
+ 	<select id="GetTotalCount" resultType="int">
+ 		select count(*) from chef 
+ 	</select>
+ 	
+ 	<select id="GetDataList" resultType="MyChef">
+ 		select * from chef
+ 		order by chefnum desc
+ 	</select>
+ 	
+ 	<select id="GetData" resultType="MyChef">
+ 		select * from chef
+ 		where chefnum = #{chefnum}
+ 	</select>
+ 	
+ 	<insert id="InsertData">
+ 		insert into chef(chefnum, writer, csubject, cshortintro, cintro, cmainimage, cingredient, cimage1, cimage2, cimage3, cimage4, cinputdate)
+ 		values(chefseq.nextval, #{writer}, #{csubject}, #{cshortintro}, #{cintro}, #{cmainimage},#{cingredient},#{cimage1},#{cimage2},#{cimage3},#{cimage4},sysdate )
+ 	</insert>
+ 	
+ 	<update id="UpdateData">
+ 		update chef set
+ 		csubject = #{csubject}, cshortintro = #{cshortintro}, cintro = #{cintro}, cmainimage = #{cmainimage}, cingredient=#{cingredient},
+ 		cimage1 = #{cimage1}, cimage2 = #{cimage2}, cimage3 = #{cimage3}, cimage4 = #{cimage4}, cinputdate = sysdate
+ 		where chefnum = #{chefnum}
+ 	</update>
+ 	
+ 	<delete id="DeleteData">
+ 		delete from chef
+ 		where chefnum = #{chefnum}
+ 	</delete>
+ 	
+ 	<select id="searchChef" resultType="MyChef">
+ 		select * from chef where csubject like #{keyword}
+ 	</select>
+ 	
+ 	<select id="recentChef" resultType="MyChef">
+ 		select * from chef order by chefnum desc
+ 	</select>
+ 	
+ </mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cookinfo.model.CookInfo" >
+<insert id="insertCookinfo">
+		insert into cookinfo values(
+		cookinfoseq.nextval,#{infosubject},#{infointro},#{infoimage},
+		#{infomovie},sysdate,#{infokind})
+</insert>
+
+ 	<select id="totalCount" resultType="int">
+ 		select count(*) from cookinfo
+ 		   
+ 	</select>
+ 	
+ 	<select id="totalinfokindCount" resultType="int">
+ 		select count(*) from cookinfo where infokind=#{infokind}
+ 		   
+ 	</select>
+ 	
+ 	<select id="totalimageCount" resultType="int">
+ 		select count(*) from cookinfo where infokind='image'
+ 		
+ 	</select>
+ 	
+ 	<select id="totalmovieCount" resultType="int">
+ 		select count(*) from cookinfo where infokind='movie'
+ 		
+ 	</select>
+ 	
+ 	 <select id="selectPageRow" resultType="MyCookinfo">
+ 		select *from cookinfo where infokind=#{infokind} order by infonum desc
+ 	</select>	
+
+
+	<!-- GetCook -->
+	<select id="GetCook" resultType="MyCookinfo" parameterType="int"> <!-- 앨범빈 객체 클래스  -->
+		select * from cookinfo where infonum = #{infonum}
+	</select>
+	
+	
+	<select id="selectByNum" resultType="MyCookinfo">
+ 		select * from cookinfo where infonum=#{infonum}
+ 	</select>
+ 	
+	<delete id="DeleteData" parameterType="MyCookinfo">
+		delete from cookinfo
+		where infonum=#{infonum}
+	</delete>
+
+	<update id="UpdateData" parameterType="MyCookinfo">
+		update cookinfo set
+		infosubject=#{infosubject}, infointro=#{infointro}, infoimage=#{infoimage}, infomovie=#{infomovie}, 
+		indate=sysdate
+		where infonum=#{infonum}
+	</update>
+</mapper>
